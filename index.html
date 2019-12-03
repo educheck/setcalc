@@ -44,6 +44,12 @@
             font-family: 'BinggraeMelona', sans-serif;
             font-size: 18px;
         }
+        #select {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
     </style>
 </head>
 <body>
@@ -103,6 +109,38 @@
         sec.onchange = function() {
             if (!started) {
                 changeText();
+            }
+        }
+    </script>
+    <script>
+        var button = document.getElementById('button');
+        var orgtext = document.getElementById('orgtext');
+        var numbers = ['영', '하나', '둘', '셋', '넷', '다섯', '여섯', '일곱', '여덟', '아홉', '열', '열하나', '열둘', '열셋', '열넷', '열다섯', '열여섯', '열일곱', '열여덟', '열아홉', '스물'];
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+        async function typetext(milisec , itime) {
+            orgtext.textContent = numbers[itime];
+            await sleep(milisec*1000);
+            alert(itime);
+        }
+        button.onclick = function() {
+            if (button.textContent == '시작!') {
+                button.textContent = '정지';
+                button.style.background = "rgb(224, 240, 224)";
+                var form = document.getElementById("select");
+                form.style.display = "none";
+
+                // Start TIMER
+                var atimes = parseFloat(document.getElementById("times").value);
+                var asets = parseFloat(document.getElementById("sets").value);
+                var asecs = parseFloat(document.getElementById("secs").value);
+                for (let iset = 1; iset <= asets; iset++) {
+                    for (let itime = 1; itime <= atimes; itime++) {
+                        typetext(asecs, itime);
+                        console.log(itime);
+                    }
+                }
             }
         }
     </script>
