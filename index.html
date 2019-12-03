@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Set Calculator</title>
+    <style>
+    /*font 'BinggraeMelona' = name*/
+    @font-face { font-family: 'BinggraeMelona'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/BinggraeMelona.woff') format('woff'); font-weight: normal; font-style: normal; }
+    /*font end*/
+        #title {
+            font-family: 'BinggraeMelona', 'Segoe UI', sans-serif;
+            text-align: center;
+        }
+        #set {
+            font-size: 36px;
+            text-align: center;
+            font-family: 'BinggraeMelona', 'Segoe UI', sans-serif;
+        }
+        #button {
+            width: 13.585vw;
+            height: 6.14vh;
+            background: rgb(170, 255, 170);
+            border: 1px solid black;
+            text-align: center;
+            margin: 0 auto 0 auto;
+            font-family: 'BinggraeMelona', 'Segoe UI', sans-serif;
+            font-size: 36px;
+            transition: 0.6s;
+            cursor: pointer;
+        }
+        #button:hover {
+            background: rgb(224, 240, 224);
+            transition: 0.6s;
+        }
+        body {
+            background: rgb(210, 252, 255)
+        }
+        html {
+            font-family: 'BinggraeMelona', 'Segoe UI', sans-serif;
+        }
+        .selects {
+            font-family: 'BinggraeMelona', sans-serif;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h2 id="title">세트 계산기</h2>
+    <span id="set">
+        <h1 id="orgtext">10번씩 3세트, 2초</h1>
+    </span>
+    <div id="button">시작!</div>
+    <br>
+    <form id="select">
+        <select id="times" class="selects">
+            <option value="5">5번</option>
+            <option value="10" selected>10번</option>
+            <option value="15">15번</option>
+            <option value="20">20번</option>
+        </select>
+        <select id="sets" class="selects">
+            <option value="1">1세트</option>
+            <option value="2">2세트</option>
+            <option value="3" selected>3세트</option>
+            <option value="4">4세트</option>
+            <option value="5">5세트</option>
+        </select>
+        <select id="secs" class="selects">
+            <option value="1">1초</option>
+            <option value="1.5">1.5초</option>
+            <option value="2" selected>2초</option>
+            <option value="2.5">2.5초</option>
+            <option value="3">3초</option>
+        </select>
+    </form>
+
+    <script>
+        var started = false;
+        var text = document.getElementById('orgtext');
+        var time = document.getElementById("times");
+        var set = document.getElementById("sets");
+        var sec = document.getElementById("secs");
+        var times; var sets; var secs;
+        document.getElementById("button").onclick = function() { started = true };
+        function changeText() {
+            times = document.getElementById("times").value;
+            sets = document.getElementById("sets").value;
+            secs = document.getElementById("secs").value;
+            text.textContent = times + "번씩 " + sets + "세트, " + secs + "초";
+        }
+        time.onchange = function() {
+            if (!started) {
+                changeText();
+            }
+        }
+        set.onchange = function() {
+            if (!started) {
+                changeText();
+            }
+        }
+        sec.onchange = function() {
+            if (!started) {
+                changeText();
+            }
+        }
+    </script>
+</body>
+</html>
