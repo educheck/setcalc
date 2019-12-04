@@ -165,11 +165,10 @@
                         playaudio();
                     }
                 }
-                var bgmaud = new Audio("startbgm.mp3"); // add '/'
+                var bgmaud = new Audio("startaud.mp3"); // add '/'
+                bgmaud.volume = 0.5;
                 bgmaud.play();
-                bgm.onended = function() {
-                    chtxt();
-                }
+                setTimeout(chtxt, 4127);
             }
             else {
                 restart();
