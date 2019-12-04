@@ -143,7 +143,7 @@
                 var cur = 1;
                 function playaudio() {
                     if (stop != true) {
-                        var dir = cur + '.mp3'; // add '/'
+                        var dir = '/' + cur + '.mp3'; // add '/'
                         var aud = new Audio(dir);
                         var total = atimes;
                         var isec = asecs;
@@ -165,7 +165,7 @@
                         playaudio();
                     }
                 }
-                var bgmaud = new Audio("startaud.mp3"); // add '/'
+                var bgmaud = new Audio("/startaud.mp3"); // add '/'
                 bgmaud.volume = 0.5;
                 bgmaud.play();
                 setTimeout(chtxt, 4127);
