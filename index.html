@@ -111,18 +111,20 @@
                 changeText();
             }
         }
+        var stop = false;
     </script>
     <script>
         var button = document.getElementById('button');
         var orgtext = document.getElementById('orgtext');
-        var numbers = ['영', '하나', '둘', '셋', '넷', '다섯', '여섯', '일곱', '여덟', '아홉', '열', '열하나', '열둘', '열셋', '열넷', '열다섯', '열여섯', '열일곱', '열여덟', '열아홉', '스물'];
-        function sleep(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-        }
-        async function typetext(milisec , itime) {
-            orgtext.textContent = numbers[itime];
-            await sleep(milisec*1000);
-            alert(itime);
+        var numbers = ['영', '하나', '둘', '셋', '넷', '다섯', '여섯', '일곱', '여덟', '아홉', '열', '열하나', '열둘', '열셋', '열넷', '열다섯', '열여섯', '열일곱', '열여덟', '열아홉', '스물', ' '];
+        var clicktimes = 0
+        function restart() {
+            button.textContent = '시작!';
+                button.style.background = "rgb(170, 255, 170)";
+                var form = document.getElementById('select');
+                form.style.display = "block";
+                stop = true;
+                changeText();
         }
         button.onclick = function() {
             if (button.textContent == '시작!') {
@@ -130,17 +132,47 @@
                 button.style.background = "rgb(224, 240, 224)";
                 var form = document.getElementById("select");
                 form.style.display = "none";
-
+                if (clicktimes > 0) {
+                    stop = false;
+                }
+                ++clicktimes;
                 // Start TIMER
-                var atimes = parseFloat(document.getElementById("times").value);
-                var asets = parseFloat(document.getElementById("sets").value);
-                var asecs = parseFloat(document.getElementById("secs").value);
-                for (let iset = 1; iset <= asets; iset++) {
-                    for (let itime = 1; itime <= atimes; itime++) {
-                        typetext(asecs, itime);
-                        console.log(itime);
+                var atimes = parseInt(document.getElementById("times").value);
+                var asets = parseInt(document.getElementById("sets").value);
+                var asecs = parseInt(document.getElementById("secs").value);
+                var cur = 1;
+                function playaudio() {
+                    if (stop != true) {
+                        var dir = cur + '.mp3'; // add '/'
+                        var aud = new Audio(dir);
+                        var total = atimes;
+                        var isec = asecs;
+                        aud.play();
+                        cur = cur + 1
+                        console.log(stop);
+                        aud.onended = function() {
+                            if (cur > total) { stop = false; restart(); return; }
+                        }
+                        setTimeout(chtxt, isec*1000);
                     }
                 }
+                function chtxt() {
+                    if (stop != true) {
+                        var total = atimes;
+                        var isec = asecs;
+                        orgtext.textContent = numbers[cur];
+                        if (stop == true) { stop = false; return; }
+                        playaudio();
+                    }
+                }
+                var bgmaud = new Audio("startbgm.mp3"); // add '/'
+                bgmaud.play();
+                bgm.onended = function() {
+                    chtxt();
+                }
+            }
+            else {
+                restart();
             }
         }
     </script>
