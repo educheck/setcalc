@@ -81,7 +81,16 @@
             <option value="3">3초</option>
         </select>
     </form>
-
+    <script> // Load Audio
+        var bgmaud = new Audio("/setcalc/startaud.mp3");
+        bgmaud.volume = 0.5;
+        bgmaud.load();
+        var numaud = [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null];
+        for (var i = 0; i < 20; i++) {
+            numaud[i] = new Audio('/setcalc/' + (i+1) + '.mp3');
+            numaud[i].load();
+        }
+    </script>
     <script>
         var started = false;
         var text = document.getElementById('orgtext');
@@ -143,11 +152,9 @@
                 var cur = 1;
                 function playaudio() {
                     if (stop != true) {
-                        var dir = '/setcalc/' + cur + '.mp3'; // add '/'
-                        var aud = new Audio(dir);
                         var total = atimes;
                         var isec = asecs;
-                        aud.play();
+                        numaud[cur-1].play();
                         cur = cur + 1
                         console.log(stop);
                         aud.onended = function() {
@@ -165,8 +172,6 @@
                         playaudio();
                     }
                 }
-                var bgmaud = new Audio("/setcalc/startaud.mp3"); // add '/'
-                bgmaud.volume = 0.5;
                 bgmaud.play();
                 setTimeout(chtxt, 4127);
             }
