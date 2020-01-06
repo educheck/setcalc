@@ -154,7 +154,8 @@
                     if (stop != true) {
                         var total = atimes;
                         var isec = asecs;
-                        numaud[cur-1].play();
+                        aud = numaud[cur-1];
+                        aud.play();
                         cur = cur + 1
                         console.log(stop);
                         aud.onended = function() {
