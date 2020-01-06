@@ -9,6 +9,7 @@
     /*font 'BinggraeMelona' = name*/
     @font-face { font-family: 'BinggraeMelona'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/BinggraeMelona.woff') format('woff'); font-weight: normal; font-style: normal; }
     /*font end*/
+    
         #title {
             font-family: 'BinggraeMelona', 'Segoe UI', sans-serif;
             text-align: center;
@@ -81,14 +82,17 @@
             <option value="3">3초</option>
         </select>
     </form>
-    <script> // Load Audio
-        var bgmaud = new Audio("/setcalc/startaud.mp3");
-        bgmaud.volume = 0.5;
-        bgmaud.load();
-        var numaud = [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null];
-        for (var i = 0; i < 20; i++) {
-            numaud[i] = new Audio('/setcalc/' + (i+1) + '.mp3');
-            numaud[i].load();
+    <audio controls id="audiocontrols" style="display: none;">
+        <source id="numberaudio" src="/setcalc/1.mp3">
+    </audio>
+    <audio controls id="startaudcontrols" style="display:none;">
+        <source id="startaudio" src="/setcalc/startaud.mp3">
+    </audio>
+    <script>
+        document.getElementById('startaudcontrols').load();
+        for (var i = 1; i <= 20; i++) {
+            document.getElementById('numberaudio').src = "/setcalc/" + i + ".mp3";
+            document.getElementById('audiocontrols').load();
         }
     </script>
     <script>
@@ -154,7 +158,8 @@
                     if (stop != true) {
                         var total = atimes;
                         var isec = asecs;
-                        aud = numaud[cur-1];
+                        document.getElementById('numberaudio').src = "/setcalc/" + cur + ".mp3";
+                        aud = document.getElementById('audiocontrols');
                         aud.play();
                         cur = cur + 1
                         console.log(stop);
