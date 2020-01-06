@@ -89,11 +89,15 @@
         <source id="startaudio" src="/setcalc/startaud.mp3">
     </audio>
     <script>
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
         var bgmaud = document.getElementById('startaudcontrols');
         bgmaud.load();
-        for (var i = 1; i <= 20; i++) {
+        for (let i = 1; i <= 20; i++) {
             document.getElementById('numberaudio').src = "/setcalc/" + i + ".mp3";
             document.getElementById('audiocontrols').load();
+            await sleep(0005);
         }
     </script>
     <script>
